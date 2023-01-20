@@ -38,6 +38,11 @@ export GOPATH=/usr/bin/go
 source ~/.bashrc
 ```
 
+```
+apt install -y protobuf-compiler
+apt-get install -y seccomp
+```
+
 
 ## Documentation
 
