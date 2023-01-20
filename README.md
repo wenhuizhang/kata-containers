@@ -71,7 +71,7 @@ cd ~/kata-containers/src/rumtime-rs
 make 
 make install
 
-# Kata dragonball
+# Kata Dragonball
 cd ~/kata-containers/src/dragonball
 make 
 make install
