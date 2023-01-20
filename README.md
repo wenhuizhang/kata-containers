@@ -41,9 +41,42 @@ source ~/.bashrc
 ```
 apt install -y protobuf-compiler
 apt-get install -y seccomp
+apt -y install libseccomp-dev
+
 ```
 
+2. Compile and Install Kata
 
+```
+# libs 
+cd ~/kata-containers/src/libs
+make 
+make install
+
+
+# Kata runtime
+cd ~/kata-containers/src/runtime
+make 
+make install
+
+# Kata agent 
+cd ~/kata-containers/src/agent
+make 
+make install
+
+
+
+# Kata RunD
+cd ~/kata-containers/src/rumtime-rs
+make 
+make install
+
+# Kata dragonball
+cd ~/kata-containers/src/dragonball
+make 
+make install
+
+```
 ## Documentation
 
 See the [official documentation](docs) including:
