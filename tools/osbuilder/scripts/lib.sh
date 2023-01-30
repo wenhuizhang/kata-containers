@@ -126,6 +126,8 @@ build_rootfs()
 		PKG_MANAGER="dnf"
 	elif check_program "yum" ; then
 		PKG_MANAGER="yum"
+	elif check_program "apt-get" ; then
+		PKG_MANAGER="apt-get"
 	else
 		die "neither yum nor dnf is installed"
 	fi
