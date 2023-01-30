@@ -138,6 +138,9 @@ cd ~/kata-containers/tools/osbuilder/rootfs-builder
 script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true ./rootfs.sh ubuntu'
 ls ./rootfs-ubuntu
 
+cd ~/kata-containers/tools/osbuilder/initrd-builder
+./initrd_builder.sh ../rootfs-builder/rootfs-ubuntu/
+
 cd ~/kata-containers/tools/osbuilder/image-builder
 ./image_builder.sh ../rootfs-builder/rootfs-ubuntu
 ```
