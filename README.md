@@ -159,7 +159,11 @@ image="kata-containers-${date}-${commit}"
 
 sudo install -o root -g root -m 0640 -D ./kata-containers.img "/usr/share/kata-containers/${image}"
 
-cd /usr/share/defaults/kata-containers && sudo ln -sf "$image" kata-containers.img
+cd /usr/share/defaults/kata-containers
+sudo ln -sf "$image" kata-containers.img
+
+root@n223-247-005:/usr/share/kata-containers# ls /usr/share/kata-containers/
+kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a  kata-containers.img
 ```
 
 
