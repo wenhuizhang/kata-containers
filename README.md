@@ -47,6 +47,55 @@ apt -y install libseccomp-dev
 
 2. Compile and Install Kata
 
+Install kata runtime explicity
+```
+cd ~/kata-containers/src/runtime
+make && sudo -E PATH=$PATH make install
+```
+Install location
+
+```
+	binary installation path (BINDIR) : /usr/local/bin
+	binaries to install :
+	 - /usr/local/bin/kata-runtime
+	 - /usr/local/bin/containerd-shim-kata-v2
+	 - /usr/local/bin/kata-monitor
+	 - /usr/local/bin/data/kata-collect-data.sh
+	configs to install (CONFIGS) :
+	 - config/configuration-acrn.toml
+ 	 - config/configuration-clh-tdx.toml
+ 	 - config/configuration-clh.toml
+ 	 - config/configuration-fc.toml
+ 	 - config/configuration-qemu-sev.toml
+ 	 - config/configuration-qemu-tdx.toml
+ 	 - config/configuration-qemu.toml
+	install paths (CONFIG_PATHS) :
+	 - /usr/share/defaults/kata-containers/configuration-acrn.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-clh-tdx.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-clh.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-fc.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu-sev.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu-tdx.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu.toml
+	alternate config paths (SYSCONFIG_PATHS) : 
+	 - /etc/kata-containers/configuration-acrn.toml
+ 	 - /etc/kata-containers/configuration-clh-tdx.toml
+ 	 - /etc/kata-containers/configuration-clh.toml
+ 	 - /etc/kata-containers/configuration-fc.toml
+ 	 - /etc/kata-containers/configuration-qemu-sev.toml
+ 	 - /etc/kata-containers/configuration-qemu-tdx.toml
+ 	 - /etc/kata-containers/configuration-qemu.toml
+	default install path for qemu (CONFIG_PATH) : /usr/share/defaults/kata-containers/configuration.toml
+	default alternate config path (SYSCONFIG) : /etc/kata-containers/configuration.toml
+	qemu hypervisor path (QEMUPATH) : /usr/bin/qemu-system-x86_64
+	cloud-hypervisor hypervisor path (CLHPATH) : /usr/bin/cloud-hypervisor
+	firecracker hypervisor path (FCPATH) : /usr/bin/firecracker
+	acrn hypervisor path (ACRNPATH) : /usr/bin/acrn-dm
+	assets path (PKGDATADIR) : /usr/share/kata-containers
+	shim path (PKGLIBEXECDIR) : /usr/libexec/kata-containers
+
+```
+
 ```
 # libs 
 cd ~/kata-containers/src/libs
