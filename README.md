@@ -2,13 +2,7 @@
 
 # Kata Containers
 
-Welcome to Kata Containers!
 
-This repository is the home of the Kata Containers code for the 2.0 and newer
-releases.
-
-If you want to learn about Kata Containers, visit the main
-[Kata Containers website](https://katacontainers.io).
 
 ## Introduction
 
@@ -17,22 +11,6 @@ standard implementation of lightweight Virtual Machines (VMs) that feel and
 perform like containers, but provide the workload isolation and security
 advantages of VMs.
 
-## License
-
-The code is licensed under the Apache 2.0 license.
-See [the license file](LICENSE) for further details.
-
-## Platform support
-
-Kata Containers currently runs on 64-bit systems supporting the following
-technologies:
-
-| Architecture | Virtualization technology |
-|-|-|
-| `x86_64`, `amd64` | [Intel](https://www.intel.com) VT-x, AMD SVM |
-| `aarch64` ("`arm64`")| [ARM](https://www.arm.com) Hyp |
-| `ppc64le` | [IBM](https://www.ibm.com) Power |
-| `s390x` | [IBM](https://www.ibm.com) Z & LinuxONE SIE |
 
 ### Hardware requirements
 
@@ -44,25 +22,116 @@ Kata Container:
 $ kata-runtime check
 ```
 
-> **Notes:**
->
-> - This command runs a number of checks including connecting to the
->   network to determine if a newer release of Kata Containers is
->   available on GitHub. If you do not wish this to check to run, add
->   the `--no-network-checks` option.
->
-> - By default, only a brief success / failure message is printed.
->   If more details are needed, the `--verbose` flag can be used to display the
->   list of all the checks performed.
->
-> - If the command is run as the `root` user additional checks are
->   run (including checking if another incompatible hypervisor is running).
->   When running as `root`, network checks are automatically disabled.
 
 ## Getting started
 
-See the [installation documentation](docs/install).
+1. install dependencies 
+```
+wget https://go.dev/dl/go1.19.5.linux-amd64.tar.gz
+rm -rf /usr/bin/go && tar -C /usr/bin -xzf go1.19.5.linux-amd64.tar.gz 
 
+go version
+
+vim ~/.bashrc 
+export PATH=$PATH:/usr/bin/go/bin
+export GOPATH=/usr/bin/go
+source ~/.bashrc
+```
+
+```
+apt install -y protobuf-compiler
+apt-get install -y seccomp
+apt -y install libseccomp-dev
+
+```
+
+2. Compile and Install Kata
+
+Install kata runtime explicity
+```
+cd ~/kata-containers/src/runtime
+make && sudo -E PATH=$PATH make install
+```
+This installation creates the following
+```
+runtime binary: /usr/local/bin/kata-runtime
+configuration file: /usr/share/defaults/kata-containers/configuration.toml
+```
+
+Install location
+
+```
+	binary installation path (BINDIR) : /usr/local/bin
+	binaries to install :
+	 - /usr/local/bin/kata-runtime
+	 - /usr/local/bin/containerd-shim-kata-v2
+	 - /usr/local/bin/kata-monitor
+	 - /usr/local/bin/data/kata-collect-data.sh
+	configs to install (CONFIGS) :
+	 - config/configuration-acrn.toml
+ 	 - config/configuration-clh-tdx.toml
+ 	 - config/configuration-clh.toml
+ 	 - config/configuration-fc.toml
+ 	 - config/configuration-qemu-sev.toml
+ 	 - config/configuration-qemu-tdx.toml
+ 	 - config/configuration-qemu.toml
+	install paths (CONFIG_PATHS) :
+	 - /usr/share/defaults/kata-containers/configuration-acrn.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-clh-tdx.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-clh.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-fc.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu-sev.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu-tdx.toml
+ 	 - /usr/share/defaults/kata-containers/configuration-qemu.toml
+	alternate config paths (SYSCONFIG_PATHS) : 
+	 - /etc/kata-containers/configuration-acrn.toml
+ 	 - /etc/kata-containers/configuration-clh-tdx.toml
+ 	 - /etc/kata-containers/configuration-clh.toml
+ 	 - /etc/kata-containers/configuration-fc.toml
+ 	 - /etc/kata-containers/configuration-qemu-sev.toml
+ 	 - /etc/kata-containers/configuration-qemu-tdx.toml
+ 	 - /etc/kata-containers/configuration-qemu.toml
+	default install path for qemu (CONFIG_PATH) : /usr/share/defaults/kata-containers/configuration.toml
+	default alternate config path (SYSCONFIG) : /etc/kata-containers/configuration.toml
+	qemu hypervisor path (QEMUPATH) : /usr/bin/qemu-system-x86_64
+	cloud-hypervisor hypervisor path (CLHPATH) : /usr/bin/cloud-hypervisor
+	firecracker hypervisor path (FCPATH) : /usr/bin/firecracker
+	acrn hypervisor path (ACRNPATH) : /usr/bin/acrn-dm
+	assets path (PKGDATADIR) : /usr/share/kata-containers
+	shim path (PKGLIBEXECDIR) : /usr/libexec/kata-containers
+
+```
+
+```
+# libs 
+cd ~/kata-containers/src/libs
+make 
+make install
+
+
+# Kata runtime
+cd ~/kata-containers/src/runtime
+make 
+make install
+
+# Kata agent 
+cd ~/kata-containers/src/agent
+make 
+make install
+
+
+
+# Kata RunD
+cd ~/kata-containers/src/rumtime-rs
+make 
+make install
+
+# Kata Dragonball
+cd ~/kata-containers/src/dragonball
+make 
+make install
+
+```
 ## Documentation
 
 See the [official documentation](docs) including:
@@ -86,29 +155,6 @@ Containers system including the [runtime](src/runtime), the
 See the [hypervisors document](docs/hypervisors.md) and the
 [Hypervisor specific configuration details](src/runtime/README.md#hypervisor-specific-configuration).
 
-## Community
-
-To learn more about the project, its community and governance, see the
-[community repository](https://github.com/kata-containers/community). This is
-the first place to go if you wish to contribute to the project.
-
-## Getting help
-
-See the [community](#community) section for ways to contact us.
-
-### Raising issues
-
-Please raise an issue
-[in this repository](https://github.com/kata-containers/kata-containers/issues).
-
-> **Note:**
-> If you are reporting a security issue, please follow the [vulnerability reporting process](https://github.com/kata-containers/community#vulnerability-handling)
-
-## Developers
-
-See the [developer guide](docs/Developer-Guide.md).
-
-### Components
 
 ### Main components
 
@@ -139,13 +185,4 @@ The table below lists the remaining parts of the project:
 | [`ci`](https://github.com/kata-containers/ci) | CI | Continuous Integration configuration files and scripts. |
 | [`katacontainers.io`](https://github.com/kata-containers/www.katacontainers.io) | Source for the [`katacontainers.io`](https://www.katacontainers.io) site. |
 
-### Packaging and releases
 
-Kata Containers is now
-[available natively for most distributions](docs/install/README.md#packaged-installation-methods).
-However, packaging scripts and metadata are still used to generate [snap](snap/local) and GitHub releases. See
-the [components](#components) section for further details.
-
-## Glossary of Terms
-
-See the [glossary of terms](https://github.com/kata-containers/kata-containers/wiki/Glossary) related to Kata Containers.
