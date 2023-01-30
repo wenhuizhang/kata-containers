@@ -151,14 +151,15 @@ cd ~/kata-containers/tools/osbuilder/image-builder
 Install the rootfs image
 
 ```
+cd ~/kata-containers/tools/osbuilder/image-builder
+
 commit=$(git log --format=%h -1 HEAD)
 date=$(date +%Y-%m-%d-%T.%N%z)
 image="kata-containers-${date}-${commit}"
-sudo install -o root -g root -m 0640 -D kata-containers.img "/usr/share/kata-containers/${image}"
+
+sudo install -o root -g root -m 0640 -D ./kata-containers.img "/usr/share/kata-containers/${image}"
+
 cd /usr/share/defaults/kata-containers && sudo ln -sf "$image" kata-containers.img
-
-
-
 ```
 
 
