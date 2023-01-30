@@ -135,7 +135,7 @@ make install
 ### 3.1 build rootfs and images
 ```
 cd ~/kata-containers/tools/osbuilder/rootfs-builder
-script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true ./rootfs.sh ubuntu'
+./rootfs.sh ubuntu
 ls ./rootfs-ubuntu
 
 cd ~/kata-containers/tools/osbuilder/initrd-builder
