@@ -132,14 +132,31 @@ make install
 
 ## 3. Build rootfs and images 
 
-### 3.1 build rootfs
+### 3.1 build rootfs and images
 ```
 cd ~/kata-containers/tools/osbuilder/rootfs-builder
 script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true ./rootfs.sh ubuntu'
 ls ./rootfs-ubuntu
+
+cd ~/kata-containers/tools/osbuilder/image-builder
+./image_builder.sh ../rootfs-builder/rootfs-ubuntu
 ```
 
-### 3.2 build images
+
+### 3.2 install images
+
+Install the rootfs image
+
+```
+commit=$(git log --format=%h -1 HEAD)
+date=$(date +%Y-%m-%d-%T.%N%z)
+image="kata-containers-${date}-${commit}"
+sudo install -o root -g root -m 0640 -D kata-containers.img "/usr/share/kata-containers/${image}"
+cd /usr/share/defaults/kata-containers && sudo ln -sf "$image" kata-containers.img
+
+
+
+```
 
 
 
