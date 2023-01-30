@@ -52,6 +52,12 @@ Install kata runtime explicity
 cd ~/kata-containers/src/runtime
 make && sudo -E PATH=$PATH make install
 ```
+This installation creates the following
+```
+runtime binary: /usr/local/bin/kata-runtime
+configuration file: /usr/share/defaults/kata-containers/configuration.toml
+```
+
 Install location
 
 ```
