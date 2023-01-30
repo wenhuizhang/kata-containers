@@ -3,16 +3,13 @@
 # Kata Containers
 
 
-
-## Introduction
-
 Kata Containers is an open source project and community working to build a
 standard implementation of lightweight Virtual Machines (VMs) that feel and
 perform like containers, but provide the workload isolation and security
 advantages of VMs.
 
 
-### Hardware requirements
+## 1. Hardware requirements
 
 The [Kata Containers runtime](src/runtime) provides a command to
 determine if your host system is capable of running and creating a
@@ -23,9 +20,9 @@ $ kata-runtime check
 ```
 
 
-## Getting started
+## 2. Getting started
 
-1. install dependencies 
+### 1. install dependencies 
 ```
 wget https://go.dev/dl/go1.19.5.linux-amd64.tar.gz
 rm -rf /usr/bin/go && tar -C /usr/bin -xzf go1.19.5.linux-amd64.tar.gz 
@@ -45,7 +42,7 @@ apt -y install libseccomp-dev
 
 ```
 
-2. Compile and Install Kata
+### 2. Compile and Install Kata
 
 Install kata runtime explicity
 ```
@@ -132,6 +129,20 @@ make
 make install
 
 ```
+
+## 3. Build rootfs and images 
+
+### 3.1 build rootfs
+```
+cd ~/kata-containers/tools/osbuilder/rootfs-builder
+script -fec 'sudo -E USE_DOCKER=true ./image_builder.sh ubuntu'
+ls ./rootfs-ubuntu
+```
+
+### 3.2 build images
+
+
+
 ## Documentation
 
 See the [official documentation](docs) including:
