@@ -256,7 +256,45 @@ kata-containers-initrd.img
 
 ```
 
-## 5. Setup kata-containers
+## 5. Build and Install Kernel
+
+1. setup kernel
+
+```
+cd ~/kata-containers/tools/packaging/kernel
+
+./build-kernel.sh -v 5.15 -b  -f -d setup
+
+Note
+-v 4.19.86: Specify the guest kernel version.
+-b: To enable BPF related features in a guest kernel.
+-g nvidia: To build a guest kernel supporting Nvidia GPU.
+-f: The .config file is forced to be generated even if the kernel directory already exists.
+-d: Enable bash debug mode.
+```
+
+
+2. change kernel config
+
+```
+cd ~/kata-containers/tools/packaging/kernel
+
+cd kata-linux--f-5.15-*
+
+make menuconfig
+
+cd ..
+./build-kernel.sh -v 5.15 -b  -f -d build
+```
+
+3. install kernel
+
+```
+./build-kernel.sh -v 5.15 -b  -f -d install
+```
+
+
+## 6. Setup kata-containers
 
 1. sync config files
 ```
