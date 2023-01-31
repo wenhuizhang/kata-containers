@@ -180,9 +180,19 @@ make install
 
 ```
 
-## 3. Build rootfs and images 
+## 3. Build QEMU
+```
+git clone https://github.com/wenhuizhang/qemu-6.2.0.git
+cd qemu-6.2.0
 
-### 3.1 build rootfs and images
+root@n223-247-005:~/qemu-6.2.0# ~/kata-containers/tools/packaging/scripts/configure-hypervisor.sh qemu > kata.cfg
+rm -rf ./build
+eval ./configure "$(cat kata.cfg)"
+```
+
+## 4. Build rootfs and images 
+
+### 4.1 build rootfs and images
 ```
 cd ~/kata-containers/tools/osbuilder/rootfs-builder
 ./rootfs.sh ubuntu
@@ -196,7 +206,7 @@ cd ~/kata-containers/tools/osbuilder/image-builder
 ```
 
 
-### 3.2 install images
+### 4.2 install images
 
 Install the rootfs image
 
@@ -216,7 +226,7 @@ root@n223-247-005:/usr/share/kata-containers# ls /usr/share/kata-containers/
 kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a  kata-containers.img
 ```
 
-## 4. Setup kata-containers
+## 5. Setup kata-containers
 
 1. sync config files
 ```
