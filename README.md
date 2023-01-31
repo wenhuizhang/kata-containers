@@ -194,12 +194,39 @@ kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a  kata-containers.im
 
 ## 4. Setup kata-containers
 
+1. sync config files
 ```
 mkdir -p /etc/kata-containers
 cp -R /usr/share/defaults/kata-containers/* /etc/kata-containers/
+
+
+root@n223-247-005:~/kata-containers# ls -lash /usr/share/defaults/kata-containers/
+total 176K
+4.0K drwxr-xr-x 2 root root 4.0K Feb  1 05:20 .
+4.0K drwxr-xr-x 4 root root 4.0K Dec  3 06:05 ..
+ 12K -rw-r--r-- 1 root root 9.6K Jan 31 03:14 configuration-acrn.toml
+ 20K -rw-r--r-- 1 root root  19K Jan 31 03:14 configuration-clh-tdx.toml
+ 20K -rw-r--r-- 1 root root  19K Jan 31 03:14 configuration-clh.toml
+ 12K -rw-r--r-- 1 root root  11K Jan 31 03:23 configuration-dragonball.toml
+ 16K -rw-r--r-- 1 root root  16K Jan 31 03:14 configuration-fc.toml
+ 28K -rw-r--r-- 1 root root  28K Jan 31 03:14 configuration-qemu-sev.toml
+ 28K -rw-r--r-- 1 root root  28K Jan 31 03:14 configuration-qemu-tdx.toml
+ 32K -rw-r--r-- 1 root root  29K Jan 31 03:14 configuration-qemu.toml
+   0 lrwxrwxrwx 1 root root   59 Feb  1 05:20 configuration.toml -> /usr/share/defaults/kata-containers/configuration-qemu.toml
+
 ```
 
-change configuration.toml
+
+2. edit default config file base
+```
+rm -f /usr/share/defaults/kata-containers/configuration.toml
+ln -s /usr/share/defaults/kata-containers/configuration-qemu.toml /usr/share/defaults/kata-containers/configuration.toml
+
+rm -f /etc/kata-containers/configuration.toml
+ln -s /etc/kata-containers/configuration-qemu.toml  /etc/kata-containers/configuration.toml
+```
+
+3. change configuration.toml
 ```
 kernel = "/usr/share/kata-containers/vmlinuz-5.15"
 image = "/usr/share/kata-containers/kata-containers.img"
