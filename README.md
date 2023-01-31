@@ -263,12 +263,12 @@ kata-containers-initrd.img
 ```
 cd ~/kata-containers/tools/packaging/kernel
 
-./build-kernel.sh -v 5.15 -b  -f -d setup
+./build-kernel.sh -v 5.15 -g intel -f -d setup
 
 Note
--v 4.19.86: Specify the guest kernel version.
+-v 5.15: Specify the guest kernel version.
 -b: To enable BPF related features in a guest kernel.
--g nvidia: To build a guest kernel supporting Nvidia GPU.
+-g nvidia/intel: To build a guest kernel supporting Nvidia/Intel GPU.
 -f: The .config file is forced to be generated even if the kernel directory already exists.
 -d: Enable bash debug mode.
 ```
