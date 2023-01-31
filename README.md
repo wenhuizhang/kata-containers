@@ -110,6 +110,9 @@ make install
 ```
 cd ~/kata-containers/src/runtime
 make && sudo -E PATH=$PATH make install
+
+mkdir -p /usr/local/bin/data/
+cp /usr/local/bin/kata-collect-data.sh /usr/local/bin/data/kata-collect-data.sh
 ```
 This installation creates the following
 ```
