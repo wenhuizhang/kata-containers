@@ -23,6 +23,28 @@ $ kata-runtime check
 ## 2. Getting started
 
 ### 1. install dependencies 
+
+
+1. general dependencies 
+
+```
+apt-get install netbase libnftnl11
+
+apt-get install -y --no-install-recommends \
+	    bc \
+	    bison \
+	    build-essential \
+	    ca-certificates \
+	    curl \
+	    flex \
+	    git \
+	    iptables \
+	    libelf-dev \
+	    patch
+```
+
+
+2. install golang
 ```
 wget https://go.dev/dl/go1.19.5.linux-amd64.tar.gz
 rm -rf /usr/bin/go && tar -C /usr/bin -xzf go1.19.5.linux-amd64.tar.gz 
@@ -34,6 +56,10 @@ export PATH=$PATH:/usr/bin/go/bin
 export GOPATH=/usr/bin/go
 source ~/.bashrc
 ```
+
+
+
+3. install protobuf and seccomp support
 
 ```
 apt install -y protobuf-compiler
@@ -166,6 +192,21 @@ root@n223-247-005:/usr/share/kata-containers# ls /usr/share/kata-containers/
 kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a  kata-containers.img
 ```
 
+## 4. Setup kata-containers
+
+```
+mkdir -p /etc/kata-containers
+cp -R /usr/share/defaults/kata-containers/* /etc/kata-containers/
+```
+
+change configuration.toml
+```
+kernel = "/usr/share/kata-containers/vmlinuz-5.15"
+image = "/usr/share/kata-containers/kata-containers.img"
+enable_iommu = true
+hotplug_vfio_on_root_bus = true
+pcie_root_port = 1
+```
 
 
 ## Documentation
