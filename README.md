@@ -289,8 +289,13 @@ cd ..
 
 3. install kernel
 
+Installation default locations: `/usr/share/kata-containers/`
+
 ```
 ./build-kernel.sh -v 5.15 -b  -f -d install
+
+ls /usr/share/kata-containers/
+
 ```
 
 
