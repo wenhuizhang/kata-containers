@@ -70,7 +70,30 @@ apt -y install libseccomp-dev
 
 ### 2. Compile and Install Kata
 
-Install kata runtime explicity
+
+
+1. Install libs and agent
+```
+# libs 
+cd ~/kata-containers/src/libs
+make 
+make install
+
+
+# Kata runtime
+cd ~/kata-containers/src/runtime
+make 
+make install
+
+# Kata agent 
+cd ~/kata-containers/src/agent
+make 
+make install
+```
+
+
+
+2. Install kata runtime explicity
 ```
 cd ~/kata-containers/src/runtime
 make && sudo -E PATH=$PATH make install
@@ -125,25 +148,10 @@ Install location
 
 ```
 
+
+
+3. Other installations
 ```
-# libs 
-cd ~/kata-containers/src/libs
-make 
-make install
-
-
-# Kata runtime
-cd ~/kata-containers/src/runtime
-make 
-make install
-
-# Kata agent 
-cd ~/kata-containers/src/agent
-make 
-make install
-
-
-
 # Kata RunD
 cd ~/kata-containers/src/rumtime-rs
 make 
