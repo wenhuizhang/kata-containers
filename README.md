@@ -200,17 +200,17 @@ cd ~/kata-containers/tools/osbuilder/rootfs-builder
 ./rootfs.sh ubuntu
 ls ./rootfs-ubuntu
 
-cd ~/kata-containers/tools/osbuilder/initrd-builder
-./initrd_builder.sh ../rootfs-builder/rootfs-ubuntu/
-
 cd ~/kata-containers/tools/osbuilder/image-builder
 ./image_builder.sh ../rootfs-builder/rootfs-ubuntu
+
+cd ~/kata-containers/tools/osbuilder/initrd-builder
+./initrd_builder.sh ../rootfs-builder/rootfs-ubuntu/
 ```
 
 
-### 4.2 install images
+### 4.2 install two images
 
-Install the rootfs image
+1. Install rootfs image
 
 ```
 cd ~/kata-containers/tools/osbuilder/image-builder
@@ -221,11 +221,37 @@ image="kata-containers-${date}-${commit}"
 
 sudo install -o root -g root -m 0640 -D ./kata-containers.img "/usr/share/kata-containers/${image}"
 
-cd /usr/share/defaults/kata-containers
+cd /usr/share/kata-containers
 sudo ln -sf "$image" kata-containers.img
 
 root@n223-247-005:/usr/share/kata-containers# ls /usr/share/kata-containers/
 kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a  kata-containers.img
+```
+
+2. Install initrd image
+
+depends on agent (located at "/usr/bin/kata-agent")
+
+```
+cd ~/kata-containers/tools/osbuilder/initrd-builder
+
+cp /usr/bin/kata-agent ../rootfs-builder/rootfs-ubuntu/usr/bin/kata-agent
+
+commit=$(git log --format=%h -1 HEAD)
+date=$(date +%Y-%m-%d-%T.%N%z)
+image="kata-containers-initrd-${date}-${commit}"
+
+sudo install -o root -g root -m 0640 -D kata-containers-initrd.img "/usr/share/kata-containers/${image}"
+
+cd /usr/share/kata-containers 
+sudo ln -sf "$image" kata-containers-initrd.img
+
+root@n223-247-005:/usr/share/kata-containers# ls /usr/share/kata-containers/
+kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a
+kata-containers.img
+kata-containers-initrd-2023-02-01-06:56:17.056503879+0800-ea1c79a24
+kata-containers-initrd.img
+
 ```
 
 ## 5. Setup kata-containers
