@@ -8,6 +8,19 @@ standard implementation of lightweight Virtual Machines (VMs) that feel and
 perform like containers, but provide the workload isolation and security
 advantages of VMs.
 
+Host artifacts for Kata
+
+* `cloud-hypervisor`, `firecracker`, `qemu`, and supporting binaries
+* `containerd-shim-kata-v2` (go runtime and rust runtime)
+* `kata-collect-data.sh`
+* `kata-runtime`
+
+
+Virtual Machine artifacts for Kata
+
+* `kata-containers.img` and `kata-containers-initrd.img`
+* `vmlinuz.container` and `vmlinuz-virtiofs.container`
+
 
 ## 1. Hardware requirements
 
