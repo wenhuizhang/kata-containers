@@ -284,7 +284,7 @@ cd kata-linux--f-5.15-*
 make menuconfig
 
 cd ..
-./build-kernel.sh -v 5.15 -b  -f -d build
+./build-kernel.sh -v 5.15 -b  -g intel -f -d build
 ```
 
 3. install kernel
@@ -292,7 +292,7 @@ cd ..
 Installation default locations: `/usr/share/kata-containers/`
 
 ```
-./build-kernel.sh -v 5.15 -b  -f -d install
+./build-kernel.sh -v 5.15 -b   -g intel -f -d install
 
 ls /usr/share/kata-containers/
 
