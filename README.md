@@ -93,6 +93,7 @@ make
 make install
 
 
+
 # Kata runtime
 cd ~/kata-containers/src/runtime
 make 
@@ -235,6 +236,7 @@ depends on agent (located at "/usr/bin/kata-agent")
 ```
 cd ~/kata-containers/tools/osbuilder/initrd-builder
 
+sudo install -o root -g root -m 0550 -T ../rootfs-builder/rootfs-ubuntu/usr/bin/kata-agent ../rootfs-builder/rootfs-ubuntu/sbin/init
 cp /usr/bin/kata-agent ../rootfs-builder/rootfs-ubuntu/usr/bin/kata-agent
 
 commit=$(git log --format=%h -1 HEAD)
