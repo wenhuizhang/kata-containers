@@ -287,16 +287,145 @@ cd ..
 ./build-kernel.sh -v 5.15 -b  -g intel -f -d build
 ```
 
+```
+...
+Kernel: arch/x86/boot/bzImage is ready  (#1)
+ Line 412: '[' '' == sev ']'
+ Line 415: '[' x86_64 '!=' powerpc ']'
+ Line 415: '[' -e arch/x86_64/boot/bzImage ']'
+ Line 416: '[' -e vmlinux ']'
+ Line 417: '[' '' == firecracker ']'
+ Line 417: '[' '' == cloud-hypervisor ']'
+ Line 418: popd
+```
+
+```
+root@n223-247-005:~/qemu-6.2.0# ls ~/kata-containers/tools/packaging/kernel/kata-linux-5.15-98/
+arch     crypto         init     lib          modules.builtin          scripts     usr
+block    Documentation  ipc      LICENSES     modules.builtin.modinfo  security    virt
+certs    drivers        Kbuild   MAINTAINERS  net                      sound       vmlinux
+COPYING  fs             Kconfig  Makefile     README                   System.map  vmlinux.o
+CREDITS  include        kernel   mm           samples                  tools       vmlinux.symvers
+
+```
+
 3. install kernel
 
 Installation default locations: `/usr/share/kata-containers/`
 
 ```
 ./build-kernel.sh -v 5.15 -b   -g intel -f -d install
+```
 
-ls /usr/share/kata-containers/
+
+log
+```
+root@n223-247-005:~/kata-containers/tools/packaging/kernel# ./build-kernel.sh -v 5.15 -g intel -f -d install
+ Line 479: getopts a:b:c:deEfg:hk:p:t:u:v:x: opt
+ Line 538: shift 6
+ Line 540: subcmd=install
+ Line 542: '[' -z install ']'
+ Line 544: [[ '' == \e\x\p\e\r\i\m\e\n\t\a\l ]]
+ Line 555: '[' -z 5.15 ']'
+ Line 580: kernel_version=5.15
+ Line 582: '[' -z '' ']'
+  Line 583: get_config_version
+  Line 117: get_config_and_patches
+  Line 111: '[' -z '' ']'
+  Line 112: patches_path=/root/kata-containers/tools/packaging/kernel/patches
+  Line 118: config_version_file=/root/kata-containers/tools/packaging/kernel/patches/../kata_config_version
+  Line 119: '[' -f /root/kata-containers/tools/packaging/kernel/patches/../kata_config_version ']'
+  Line 120: cat /root/kata-containers/tools/packaging/kernel/patches/../kata_config_version
+ Line 583: config_version=98
+ Line 584: [[ '' != '' ]]
+ Line 587: kernel_path=/root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+ Line 589: info 'Config version: 98'
+ Line 60: echo 'INFO: Config version: 98'
+INFO: Config version: 98
+ Line 592: info 'Kernel version: 5.15'
+ Line 60: echo 'INFO: Kernel version: 5.15'
+INFO: Kernel version: 5.15
+ Line 594: case "${subcmd}" in
+ Line 599: build_kernel /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+ Line 405: local kernel_path=/root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+ Line 406: '[' -n /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98 ']'
+ Line 407: '[' -d /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98 ']'
+ Line 408: '[' -n '' ']'
+  Line 408: uname -m
+ Line 408: arch_target=x86_64
+  Line 409: arch_to_kernel x86_64
+  Line 113: local -r arch=x86_64
+  Line 115: case "$arch" in
+  Line 119: echo x86_64
+ Line 409: arch_target=x86_64
+ Line 410: pushd /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+  Line 411: nproc
+ Line 411: make -j 8 ARCH=x86_64
+  DESCEND objtool
+  CALL    scripts/atomic/check-atomics.sh
+  CALL    scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+Kernel: arch/x86/boot/bzImage is ready  (#1)
+ Line 412: '[' '' == sev ']'
+ Line 415: '[' x86_64 '!=' powerpc ']'
+ Line 415: '[' -e arch/x86_64/boot/bzImage ']'
+ Line 416: '[' -e vmlinux ']'
+ Line 417: '[' '' == firecracker ']'
+ Line 417: '[' '' == cloud-hypervisor ']'
+ Line 418: popd
+ Line 600: install_kata /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+ Line 422: local kernel_path=/root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+ Line 423: '[' -n /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98 ']'
+ Line 424: '[' -d /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98 ']'
+ Line 425: pushd /root/kata-containers/tools/packaging/kernel/kata-linux-5.15-98
+  Line 426: get_config_version
+  Line 117: get_config_and_patches
+  Line 111: '[' -z '' ']'
+  Line 112: patches_path=/root/kata-containers/tools/packaging/kernel/patches
+  Line 118: config_version_file=/root/kata-containers/tools/packaging/kernel/patches/../kata_config_version
+  Line 119: '[' -f /root/kata-containers/tools/packaging/kernel/patches/../kata_config_version ']'
+  Line 120: cat /root/kata-containers/tools/packaging/kernel/patches/../kata_config_version
+ Line 426: config_version=98
+ Line 427: '[' -n 98 ']'
+  Line 428: readlink -m ///usr/share/kata-containers
+ Line 428: install_path=/usr/share/kata-containers
+ Line 430: suffix=
+ Line 431: [[ '' != '' ]]
+ Line 434: [[ intel != '' ]]
+ Line 435: suffix=-intel-gpu
+ Line 438: [[ '' != '' ]]
+ Line 442: vmlinuz=vmlinuz-5.15-98-intel-gpu
+ Line 443: vmlinux=vmlinux-5.15-98-intel-gpu
+ Line 445: '[' -e arch/x86_64/boot/bzImage ']'
+ Line 446: bzImage=arch/x86_64/boot/bzImage
+ Line 454: '[' x86_64 = powerpc ']'
+ Line 457: install --mode 0644 -D arch/x86_64/boot/bzImage /usr/share/kata-containers/vmlinuz-5.15-98-intel-gpu
+ Line 461: '[' x86_64 = arm64 ']'
+ Line 463: '[' x86_64 = s390 ']'
+ Line 466: install --mode 0644 -D vmlinux /usr/share/kata-containers/vmlinux-5.15-98-intel-gpu
+ Line 469: install --mode 0644 -D ./.config /usr/share/kata-containers/config-5.15
+ Line 471: ln -sf vmlinuz-5.15-98-intel-gpu /usr/share/kata-containers/vmlinuz-intel-gpu.container
+ Line 472: ln -sf vmlinux-5.15-98-intel-gpu /usr/share/kata-containers/vmlinux-intel-gpu.container
+ Line 473: ls -la /usr/share/kata-containers/vmlinux-intel-gpu.container
+lrwxrwxrwx 1 root root 25 Feb  1 08:09 /usr/share/kata-containers/vmlinux-intel-gpu.container -> vmlinux-5.15-98-intel-gpu
+ Line 474: ls -la /usr/share/kata-containers/vmlinuz-intel-gpu.container
+lrwxrwxrwx 1 root root 25 Feb  1 08:09 /usr/share/kata-containers/vmlinuz-intel-gpu.container -> vmlinuz-5.15-98-intel-gpu
+```
+
+verify 
 
 ```
+root@n223-247-005:~/kata-containers/tools/packaging/kernel# ls /usr/share/kata-containers/
+config-5.15                                                          vmlinux-5.15-98-intel-gpu
+kata-containers-2023-01-31-06:04:20.789226969+0800-e6dbe0a9a         vmlinux-intel-gpu.container
+kata-containers.img                                                  vmlinuz-5.15-98-intel-gpu
+kata-containers-initrd-2023-02-01-06:56:17.056503879+0800-ea1c79a24  vmlinuz-intel-gpu.container
+kata-containers-initrd.img
+
+
+```
+
+
 
 
 ## 6. Setup kata-containers
