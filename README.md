@@ -473,9 +473,28 @@ pcie_root_port = 1
 
 ## 7. Test
 
+You need a machine with KVM to test.
+```
+egrep -c '(vmx|svm)' /proc/cpuinfo
+2
+
+sudo kvm-ok
+sudo apt install cpu-checker
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+```
+
+
+virtio setup : https://virtio-fs.gitlab.io/howto-qemu.html
+
+
 ```
 sudo ctr image pull docker.io/library/busybox:latest
 sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
+```
+
+socket location 
+```
+ls /var/run/containerd/
 ```
 
 
