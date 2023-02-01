@@ -256,7 +256,7 @@ kata-containers-initrd.img
 
 ```
 
-## 5. Build and Install Kernel
+## 5. Build and Install Kernel vmlinux-container
 
 1. setup kernel
 
@@ -469,6 +469,13 @@ image = "/usr/share/kata-containers/kata-containers.img"
 enable_iommu = true
 hotplug_vfio_on_root_bus = true
 pcie_root_port = 1
+```
+
+## 7. Test
+
+```
+sudo ctr image pull docker.io/library/busybox:latest
+sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
 ```
 
 
