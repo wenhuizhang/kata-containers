@@ -74,6 +74,10 @@ source ~/.bashrc
 rust
 ```
 curl https://sh.rustup.rs -sSf | sh
+vim ~/.bashrc 
+export PATH=$PATH:/usr/bin/go/bin:$HOME/.cargo/bin
+. "$HOME/.cargo/env"
+source ~/.bashrc
 ```
 
 
