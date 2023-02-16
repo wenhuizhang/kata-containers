@@ -57,7 +57,9 @@ apt-get install -y --no-install-recommends \
 ```
 
 
-2. install golang
+2. install golang and rust
+
+golang
 ```
 wget https://go.dev/dl/go1.19.5.linux-amd64.tar.gz
 rm -rf /usr/bin/go && tar -C /usr/bin -xzf go1.19.5.linux-amd64.tar.gz 
@@ -68,6 +70,10 @@ vim ~/.bashrc
 export PATH=$PATH:/usr/bin/go/bin
 export GOPATH=/usr/bin/go
 source ~/.bashrc
+```
+rust
+```
+curl https://sh.rustup.rs -sSf | sh
 ```
 
 
