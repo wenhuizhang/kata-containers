@@ -82,6 +82,8 @@ source ~/.bashrc
 
 
 
+
+
 3. install protobuf and seccomp support
 
 ```
@@ -111,6 +113,10 @@ make install
 
 # Kata agent 
 cd ~/kata-containers/src/agent
+sudo apt install musl-tools
+arch=$(uname -m)
+rustup target add "${arch}-unknown-linux-musl"
+sudo ln -s /usr/bin/g++ /bin/musl-g++
 make 
 make install
 ```
