@@ -369,10 +369,6 @@ build_rootfs_distro()
 		mkdir -p ${ROOTFS_DIR}
 	fi
 
-	# need to detect rustc's version too?
-	detect_rust_version ||
-		die "Could not detect the required rust version for AGENT_VERSION='${AGENT_VERSION:-main}'."
-
 	echo "Required rust version: $RUST_VERSION"
 
 	if [ "${SELINUX}" == "yes" ]; then
