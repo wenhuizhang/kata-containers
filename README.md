@@ -214,6 +214,7 @@ sudo -E make install
 ### 4.1 build rootfs and images
 ```
 cd ~/kata-containers/tools/osbuilder/rootfs-builder
+sudo apt-get install multistrap
 ./rootfs.sh ubuntu
 ls ./rootfs-ubuntu
 
