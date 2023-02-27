@@ -297,12 +297,11 @@ Note
 ```
 cd ~/kata-containers/tools/packaging/kernel
 
-cd kata-linux--f-5.15-*
+mv kata-linux-*** kata-linux--***
 
-make menuconfig
+//make menuconfig
 
-cd ..
-./build-kernel.sh -v 5.15 -b  -g intel -f -d build
+./build-kernel.sh build -v 5.15 -b  -g intel -f -d 
 ```
 
 ```
@@ -332,7 +331,7 @@ CREDITS  include        kernel   mm           samples                  tools    
 Installation default locations: `/usr/share/kata-containers/`
 
 ```
-./build-kernel.sh -v 5.15 -b   -g intel -f -d install
+./build-kernel.sh install -v 5.15 -b   -g intel -f -d 
 ```
 
 
