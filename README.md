@@ -112,6 +112,7 @@ make
 make install
 
 # Kata agent 
+sudo kata-collect-data.sh > /tmp/kata.log
 cd ~/kata-containers/src/agent
 sudo apt install musl-tools
 arch=$(uname -m)
