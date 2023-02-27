@@ -24,6 +24,7 @@ COMMIT_MSG = $(if $(COMMIT),$(COMMIT),unknown)
 export VERSION_COMMIT := $(if $(COMMIT),$(VERSION)-$(COMMIT),$(VERSION))
 
 EXTRA_RUSTFEATURES :=
+EXTRA_RUSTFLAGS := 
 
 ##VAR SECCOMP=yes|no define if agent enables seccomp feature
 SECCOMP := yes
