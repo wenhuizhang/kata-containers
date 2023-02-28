@@ -503,6 +503,20 @@ sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 
 virtio setup : https://virtio-fs.gitlab.io/howto-qemu.html
 
+setup the containerd
+```
+containerd config default > /etc/containerd/config.toml
+vim config.toml 
+
+# add kata runtime option after the runtimes
+# [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.kata]
+  runtime_type = "io.containerd.kata.v2"
+
+
+systemctl restart containerd
+```
+pull the image and test 
 
 ```
 sudo ctr image pull docker.io/library/busybox:latest
@@ -511,7 +525,8 @@ sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busyb
 
 socket location 
 ```
-ls /var/run/containerd/
+root@n192-191-015:~/kata-containers# ls /run/containerd/containerd.sock
+/run/containerd/containerd.sock
 ```
 
 
