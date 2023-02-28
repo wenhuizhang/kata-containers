@@ -540,6 +540,13 @@ See the [official documentation](docs) including:
   - [Architecture overview](docs/design/architecture)
   - [Architecture 3.0 overview](docs/design/architecture_3.0/)
 
+## Virtio Steup
+To use virtio-mem
+```
+echo 1 > /proc/sys/vm/overcommit_memory
+```
+
+
 ## Configuration
 
 Kata Containers uses a single
