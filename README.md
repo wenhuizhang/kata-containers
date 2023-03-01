@@ -501,6 +501,8 @@ setup the containerd
 containerd config default > /etc/containerd/config.toml
 vim config.toml 
 
+
+
 # add kata runtime option after the runtimes
 # [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.kata]
@@ -510,6 +512,7 @@ vim config.toml
 systemctl restart containerd
 ```
 
+***systemctl restart containerd***
 
 - Sample containerd configuration
 
