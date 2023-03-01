@@ -464,6 +464,7 @@ sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 
 
 virtio setup : https://virtio-fs.gitlab.io/howto-qemu.html
+
 ```
 apt-get install dracut live-tools
 lsinitrd /boot/initramfs-$(uname -r).img | grep virtio
@@ -471,7 +472,6 @@ lsinitrd /boot/initrd.img-5.15.56.bsk.1-amd64 | grep virtio
 
 vim /etc/dracut.conf
 add_drivers+="virtio_blk virtio_scsi virtio_net virtio_pci virtio_ring virtio"
-
 
 dracut -f
 
@@ -484,10 +484,12 @@ virtio_ring
 virtio
 
 
-
 update-initramfs -u
 lsinitrd /boot/initramfs-$(uname -r).img | grep virtio
 lsinitrd /boot/initrd.img-5.15.56.bsk.1-amd64 | grep virtio
+
+
+ls /usr/libexec/virtiofsd
 ```
 
 setup the containerd
