@@ -736,8 +736,10 @@ version = 2
 pull the image and test 
 
 ```
-sudo ctr image pull docker.io/library/busybox:latest
-sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
+ctr image pull docker.io/library/busybox:latest
+ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
+ctr run --runtime=io.containerd.kata.v2 --rm docker.io/library/busybox:latest kata-test uname -r
+
 ```
 
 socket location 
