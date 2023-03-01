@@ -1,6 +1,4 @@
-
-
-# Kata Containers
+# Kata QEMU Installation
 
 
 Kata Containers is an open source project and community working to build a
@@ -450,7 +448,7 @@ hotplug_vfio_on_root_bus = true
 pcie_root_port = 1
 ```
 
-## 7. Test
+## 7. Test with QEMU
 
 You need a machine with KVM to test.
 ```
@@ -492,6 +490,12 @@ lsinitrd /boot/initrd.img-5.15.56.bsk.1-amd64 | grep virtio
 ls /usr/libexec/virtiofsd
 ```
 
+To use virtio-mem
+```
+echo 1 > /proc/sys/vm/overcommit_memory
+```
+
+
 setup the containerd
 ```
 containerd config default > /etc/containerd/config.toml
@@ -505,45 +509,11 @@ vim config.toml
 
 systemctl restart containerd
 ```
-pull the image and test 
-
-```
-sudo ctr image pull docker.io/library/busybox:latest
-sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
-```
-
-socket location 
-```
-root@n192-191-015:~/kata-containers# ls /run/containerd/containerd.sock
-/run/containerd/containerd.sock
-```
 
 
-## Documentation
+- Sample containerd configuration
 
-See the [official documentation](docs) including:
-
-- [Installation guides](docs/install)
-- [Developer guide](docs/Developer-Guide.md)
-- [Design documents](docs/design)
-  - [Architecture overview](docs/design/architecture)
-  - [Architecture 3.0 overview](docs/design/architecture_3.0/)
-
-## Virtio Steup
-To use virtio-mem
-```
-echo 1 > /proc/sys/vm/overcommit_memory
-```
-
-
-## Configuration
-
-Kata Containers uses a single
-[configuration file](src/runtime/README.md#configuration)
-which contains a number of sections for various parts of the Kata
-Containers system including the [runtime](src/runtime), the
-[agent](src/agent) and the [hypervisor](#hypervisors).
-
+We need to change configuration of containerd, a sample is shown below. 
 
 ```
 disabled_plugins = []
@@ -763,39 +733,16 @@ version = 2
   uid = 0
 ```
 
-## Hypervisors
+pull the image and test 
 
-See the [hypervisors document](docs/hypervisors.md) and the
-[Hypervisor specific configuration details](src/runtime/README.md#hypervisor-specific-configuration).
+```
+sudo ctr image pull docker.io/library/busybox:latest
+sudo ctr run --runtime io.containerd.run.kata.v2 -t --rm docker.io/library/busybox:latest hello sh
+```
 
-
-### Main components
-
-The table below lists the core parts of the project:
-
-| Component | Type | Description |
-|-|-|-|
-| [runtime](src/runtime) | core | Main component run by a container manager and providing a containerd shimv2 runtime implementation. |
-| [runtime-rs](src/runtime-rs) | core | The Rust version runtime. |
-| [agent](src/agent) | core | Management process running inside the virtual machine / POD that sets up the container environment. |
-| [`dragonball`](src/dragonball) | core | An optional built-in VMM brings out-of-the-box Kata Containers experience with optimizations on container workloads |
-| [documentation](docs) | documentation | Documentation common to all components (such as design and install documentation). |
-| [tests](https://github.com/kata-containers/tests) | tests | Excludes unit tests which live with the main code. |
-
-### Additional components
-
-The table below lists the remaining parts of the project:
-
-| Component | Type | Description |
-|-|-|-|
-| [packaging](tools/packaging) | infrastructure | Scripts and metadata for producing packaged binaries<br/>(components, hypervisors, kernel and rootfs). |
-| [kernel](https://www.kernel.org) | kernel | Linux kernel used by the hypervisor to boot the guest image. Patches are stored [here](tools/packaging/kernel). |
-| [osbuilder](tools/osbuilder) | infrastructure | Tool to create "mini O/S" rootfs and initrd images and kernel for the hypervisor. |
-| [`agent-ctl`](src/tools/agent-ctl) | utility | Tool that provides low-level access for testing the agent. |
-| [`kata-ctl`](src/tools/kata-ctl) | utility | Tool that provides advanced commands and debug facilities. |
-| [`trace-forwarder`](src/tools/trace-forwarder) | utility | Agent tracing helper. |
-| [`runk`](src/tools/runk) | utility | Standard OCI container runtime based on the agent. |
-| [`ci`](https://github.com/kata-containers/ci) | CI | Continuous Integration configuration files and scripts. |
-| [`katacontainers.io`](https://github.com/kata-containers/www.katacontainers.io) | Source for the [`katacontainers.io`](https://www.katacontainers.io) site. |
-
+socket location 
+```
+root@n192-191-015:~/kata-containers# ls /run/containerd/containerd.sock
+/run/containerd/containerd.sock
+```
 
