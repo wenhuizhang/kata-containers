@@ -755,3 +755,43 @@ root@n192-191-015:~/kata-containers# ls /run/containerd/containerd.sock
 /run/containerd/containerd.sock
 ```
 
+## run with docker 
+
+```
+$ sudo mkdir -p /etc/systemd/system/docker.service.d/
+$ cat <<EOF | sudo tee /etc/systemd/system/docker.service.d/kata-containers.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -D --add-runtime kata-runtime=/usr/local/bin/kata-runtime --default-runtime=kata-runtime
+EOF
+Docker daemon.json
+```
+
+Create docker configuration folder.
+```
+$ sudo mkdir -p /etc/docker
+Add the following definitions to /etc/docker/daemon.json:
+
+{
+  "default-runtime": "kata",
+  "runtimes": {
+    "kata: {
+      "path": "/usr/local/bin/kata-runtime"
+    }
+  }
+}
+```
+Restart the Docker systemd service with the following commands:
+```
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
+Run Kata Containers
+
+You are now ready to run Kata Containers:
+```
+$ sudo docker run busybox uname -a
+$ docker run -it  --runtime=kata --mount src=/root,target=/root,type=bind --mount src=/usr,target=/usr,type=bind ubuntu bash
+```
+
