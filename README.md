@@ -795,3 +795,14 @@ $ sudo docker run busybox uname -a
 $ docker run -it  --runtime=kata --mount src=/root,target=/root,type=bind --mount src=/usr,target=/usr,type=bind ubuntu bash
 ```
 
+Test QEMU:
+```
+git clone https://gitlab.com/qemu-project/qemu.git
+cd qemu
+git submodule init
+git submodule update --recursive
+./configure
+make
+
+./qemu/build/qemu-system-x86_64 -m 3500 -smp 4  -boot d -vga none -append 'console=ttyS0' -serial mon:stdio -hda ./test.img -drive file=jammy-server-cloudimg-amd64.img,media=disk,if=virtio -kernel ./kata-containers/tools/packaging/kernel/kata-linux-5.15-96/vmlinux -initrd ./kata-containers/tools/osbuilder/initrd-builder/kata-containers-initrd.img
+```
