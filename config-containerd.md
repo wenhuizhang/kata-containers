@@ -1,3 +1,7 @@
+
+```
+root@n192-191-015:~# cat /etc/containerd/config.toml 
+
 disabled_plugins = []
 imports = []
 oom_score = 0
@@ -213,3 +217,5 @@ version = 2
   address = ""
   gid = 0
   uid = 0
+  
+  ```
