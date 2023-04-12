@@ -1,3 +1,4 @@
+```
 root@n192-191-015:~/opt/kata/share/defaults/kata-containers# cat /etc/kata-containers/configuration.toml 
 [hypervisor.firecracker]
 path = "/root/opt/kata/bin/firecracker"
@@ -52,3 +53,4 @@ sandbox_cgroup_only=false
 static_sandbox_resource_mgmt=true
 disable_guest_empty_dir=false
 experimental=[]
+```
